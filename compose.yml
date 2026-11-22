@@ -1,14 +1,11 @@
-# Hetzner deployment. The reverse proxy (Caddy / Traefik / nginx) that already runs on the
-# server terminates TLS and forwards to web:3000. It must pass X-Forwarded-For so that the
-# per-IP rate limit of /api/ask (milestone M3) sees the real client address.
+# Production stack on the Hetzner server (/opt/kopecjan):
+#   caddy  terminates TLS on 80/443 and proxies to web
+#   web    the Next.js standalone server, reachable only inside the compose network
 #
-#   docker compose up -d --build
+# Deploy or update:
+#   cd /opt/kopecjan && git pull && docker compose up -d --build
 #
-# Caddy example (Caddyfile):
-#   kopecjan.cz, www.kopecjan.cz {
-#     reverse_proxy web:3000
-#     header Strict-Transport-Security "max-age=31536000; includeSubDomains"
-#   }
+# Runtime secrets (ANTHROPIC_API_KEY, limits) live in /opt/kopecjan/.env, never in git.
 
 services:
   web:
@@ -19,21 +16,29 @@ services:
         NEXT_PUBLIC_ANALYTICS_URL: ${NEXT_PUBLIC_ANALYTICS_URL:-}
         NEXT_PUBLIC_ANALYTICS_SITE_ID: ${NEXT_PUBLIC_ANALYTICS_SITE_ID:-}
         NEXT_PUBLIC_CHAT_ENABLED: ${NEXT_PUBLIC_CHAT_ENABLED:-false}
-    image: kopecjan:latest
-    container_name: kopecjan
+    image: kopecjan-web:latest
     restart: unless-stopped
     env_file:
       - path: .env
         required: false
     expose:
       - "3000"
-    # Uncomment to publish directly without a proxy:
-    # ports:
-    #   - "127.0.0.1:3000:3000"
-    networks:
-      - proxy
+    mem_limit: 768m
 
-networks:
-  proxy:
-    external: true
-    # Create once with: docker network create proxy
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+
+volumes:
+  caddy_data:
+  caddy_config:

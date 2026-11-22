@@ -61,17 +61,17 @@ goes to `content/` (see `docs/06-content-guide.md`); `pnpm index` turns it into 
 
 ## Deployment
 
-Docker image with the Next.js standalone output, behind the reverse proxy on the Hetzner server:
+Production runs on the Hetzner server (ssh alias `server`) in `/opt/kopecjan`: Docker Compose with
+two services, `caddy` (TLS on 80/443, config in `deploy/Caddyfile`) and `web` (Next.js standalone).
 
 ```
-docker network create proxy        # once
-docker compose up -d --build
+ssh server
+cd /opt/kopecjan && git pull && docker compose up -d --build
+docker compose logs -f web
 ```
 
-Build-time public variables (`NEXT_PUBLIC_*`) are passed as build args from `.env`; runtime secrets
-(`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, limits) are read from the same `.env` by the container. The
-proxy must forward `X-Forwarded-For` so the per-IP rate limit sees real addresses. A Caddy example is
-in `compose.yml`. The same code also runs on Vercel without changes (import the repo, set the env
-variables, done).
+Build-time public variables (`NEXT_PUBLIC_*`) and runtime secrets (`ANTHROPIC_API_KEY`, limits) are read
+from `/opt/kopecjan/.env`, which is not in git. Caddy passes the client IP in `X-Forwarded-For` for the
+rate limit. The same code also runs on Vercel without changes.
 
 Environment variables are listed with comments in `.env.example`.
