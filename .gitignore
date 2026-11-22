@@ -25,3 +25,6 @@ playwright/.cache/
 Thumbs.db
 *.tsbuildinfo
 .vercel
+
+# Claude Code personal settings
+.claude/settings.local.json
