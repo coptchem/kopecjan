@@ -1,0 +1,24 @@
+# Reverse proxy for kopecjan.cz. Caddy obtains and renews Let's Encrypt certificates itself.
+{
+	email info@kopecjan.cz
+}
+
+www.kopecjan.cz {
+	redir https://kopecjan.cz{uri} permanent
+}
+
+kopecjan.cz {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+
+	# Long cache for hashed build assets and fonts.
+	@immutable path /_next/static/* /fonts/*
+	header @immutable Cache-Control "public, max-age=31536000, immutable"
+
+	# Caddy sets X-Forwarded-For to the real client IP; the app's rate limit reads it.
+	reverse_proxy web:3000
+}
