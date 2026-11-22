@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+pnpm-lock.yaml
+playwright-report
+test-results
+data/index.json
+data/.embed-cache.json
+public
+cv
+docs
+CLAUDE.md

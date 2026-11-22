@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "title": "Jan Kopecký, Senior Full-Stack Engineer, AI a automatizace",
+    "description": "Full-stack vývojář s více než 10 lety praxe. Webové aplikace, automatizace a integrace od začátku do konce, s AI v produktech i ve workflow. Česká republika, remote."
+  },
+  "nav": {
+    "ask": "Zeptat se AI",
+    "projects": "Projekty",
+    "skills": "Dovednosti",
+    "experience": "Zkušenosti",
+    "contact": "Kontakt",
+    "menu": "Otevřít menu",
+    "close": "Zavřít menu",
+    "theme": "Přepnout tmavý režim",
+    "language": "Jazyk"
+  },
+  "hero": {
+    "eyebrow": "Senior Full-Stack Engineer · AI a automatizace",
+    "name": "Jan Kopecký",
+    "intro": "Stavím webové aplikace, automatizace a integrace od začátku do konce, od sběru a zpracování dat přes backend až po uživatelské rozhraní. AI používám jak v produktech, tak ve svém vývojářském workflow.",
+    "location": "Česká republika (CET), remote",
+    "ctaAsk": "Zeptejte se mé AI",
+    "ctaCv": "Stáhnout CV",
+    "cvHref": "/cv/Jan_Kopecky_CV_CZ.pdf",
+    "linkedin": "LinkedIn",
+    "email": "E-mail"
+  },
+  "ask": {
+    "title": "Zeptejte se na Jana",
+    "subtitle": "AI asistent, který odpovídá na otázky o mých zkušenostech, dovednostech a projektech z mých vlastních dokumentů. Zeptejte se na cokoli, co by zajímalo recruitera nebo klienta.",
+    "note": "Odpovědi generuje AI z Janova CV a poznámek k projektům.",
+    "howTitle": "Jak to funguje",
+    "steps": [
+      {
+        "title": "Moje dokumenty",
+        "desc": "CV, poznámky k projektům a krátké texty, uložené jako prostý text."
+      },
+      {
+        "title": "Embeddingy",
+        "desc": "Každý odstavec se převede na číselný otisk svého významu."
+      },
+      {
+        "title": "Vektorové vyhledávání",
+        "desc": "Vaše otázka se porovná s těmito otisky a najdou se relevantní odstavce."
+      },
+      {
+        "title": "LLM",
+        "desc": "Jazykový model (Claude) napíše odpověď jen z toho, co se našlo."
+      },
+      {
+        "title": "Odpověď se zdroji",
+        "desc": "Dostanete odpověď a štítky s dokumenty, ze kterých vychází."
+      }
+    ],
+    "tags": ["Next.js", "Embeddingy", "Vektorové vyhledávání", "Claude API"]
+  },
+  "chat": {
+    "title": "Janův AI asistent",
+    "subtitle": "Odpovídá z Janova CV a poznámek k projektům",
+    "counter": "{used} / {limit} otázek",
+    "welcome": "Ahoj, jsem Janův AI asistent. Zeptejte se na jeho zkušenosti, dovednosti nebo projekty a odpovím z jeho vlastních dokumentů.",
+    "chips": [
+      "Jaké AI nástroje Jan používá?",
+      "Řekni mi o jeho SaaS projektu",
+      "Hodí se na remote pozici AI engineera?",
+      "Co dělal v MSD?"
+    ],
+    "writing": "Píšu odpověď",
+    "sources": "Zdroje",
+    "fallback": "Tohle z Janových dokumentů nevím a nechci hádat. Napište prosím přímo Janovi, rád odpoví.",
+    "contactJan": "Napsat Janovi",
+    "askElse": "Zeptat se na něco jiného",
+    "errorTitle": "Něco se pokazilo.",
+    "errorBody": "Odpověď se nepodařilo vygenerovat. Zkuste to prosím za chvíli znovu.",
+    "retry": "Zkusit znovu",
+    "limitTitle": "Dosáhli jste limitu {limit} otázek za hodinu.",
+    "limitBody": "Zkuste to prosím asi za {minutes} minut, nebo napište přímo Janovi.",
+    "limitLink": "Napsat na info@kopecjan.cz",
+    "label": "Vaše otázka o Janovi",
+    "placeholder": "Zeptejte se na Janovy zkušenosti, dovednosti nebo projekty",
+    "limitPlaceholder": "Limit vyčerpán, zkuste to později",
+    "send": "Odeslat",
+    "stop": "Zastavit generování",
+    "hint": "Odeslat klávesou Enter. Odpovědi mohou obsahovat chyby; zdrojem pravdy je CV.",
+    "inactiveBadge": "Již brzy",
+    "inactiveTitle": "Asistent je téměř hotový.",
+    "inactiveBody": "Spustím ho během několika dní. Do té doby si stáhněte CV nebo mi napište přímo.",
+    "inactivePlaceholder": "Asistent zatím není k dispozici"
+  },
+  "projects": {
+    "title": "Projekty",
+    "subtitle": "Produkty, které sám navrhuji, stavím a provozuji.",
+    "items": [
+      {
+        "name": "Flatter.cz",
+        "badge": "SaaS",
+        "desc": "Předplatitelský SaaS pro sledování realitního trhu: datová pipeline, frontend, backend a e-mailové notifikace.",
+        "tags": ["React", "Vite", "Tailwind", "Node.js", "Python", "MySQL"],
+        "linkLabel": "flatter.cz",
+        "href": "https://flatter.cz"
+      },
+      {
+        "name": "TAO Real Estate",
+        "badge": "Beta",
+        "desc": "Provede majitele celým prodejem nemovitosti bez realitní kanceláře: kontrola katastru, úprava fotek s AI, prohlídky, orientační cena podle cenové mapy, smlouvy a podklady pro katastr.",
+        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"],
+        "linkLabel": "taoreal.cz",
+        "href": "https://taoreal.cz"
+      },
+      {
+        "name": "Zeptejte se na Jana",
+        "badge": "RAG",
+        "desc": "Asistent tohoto webu: odpovídá na otázky o mně z mých vlastních dokumentů, včetně zdrojů.",
+        "tags": ["Embeddingy", "Vektorové vyhledávání", "Claude API", "Next.js"],
+        "linkLabel": "Vyzkoušet výše",
+        "href": "#ask"
+      }
+    ]
+  },
+  "skills": {
+    "title": "Dovednosti",
+    "subtitle": "S čím pracuji každý den.",
+    "groups": [
+      {
+        "name": "AI coding",
+        "tags": [
+          "Claude Code (subagenti, hooky, pravidla projektu)",
+          "OpenAI Codex",
+          "Google Antigravity"
+        ]
+      },
+      {
+        "name": "LLM a API",
+        "tags": [
+          "Anthropic Claude",
+          "OpenAI GPT",
+          "Google Gemini",
+          "LLM workflow",
+          "Návrh promptů",
+          "Řízení tokenů a nákladů"
+        ]
+      },
+      {
+        "name": "Automatizace",
+        "tags": ["REST API", "Webhooky", "Integrace třetích stran", "Data mining"]
+      },
+      {
+        "name": "Frontend",
+        "tags": [
+          "Vanilla JS",
+          "TypeScript",
+          "React",
+          "Next.js",
+          "Vite",
+          "Tailwind CSS",
+          "HTML",
+          "CSS"
+        ]
+      },
+      {
+        "name": "Backend",
+        "tags": ["Node.js", "Python", "SQL", "MySQL", "PostgreSQL"]
+      },
+      {
+        "name": "CMS",
+        "tags": ["WordPress VIP", "Joomla", "Tridion"]
+      },
+      {
+        "name": "Analytika",
+        "tags": ["Google Tag Manager", "Google Analytics", "Tealium"]
+      },
+      {
+        "name": "CI/CD a DevOps",
+        "tags": [
+          "Git workflow",
+          "GitHub Actions",
+          "Bitbucket Pipelines",
+          "Docker",
+          "Automatizované testy a linting",
+          "Linuxové servery"
+        ]
+      },
+      {
+        "name": "Nástroje",
+        "tags": ["GitHub", "JIRA", "Bitbucket", "Confluence"]
+      }
+    ]
+  },
+  "experience": {
+    "title": "Zkušenosti",
+    "subtitle": "Více než 10 let v softwaru, od IT podpory po senior full-stack a AI automatizaci.",
+    "jobs": [
+      {
+        "title": "Freelance vývojář, AI automatizace a software na míru",
+        "org": "OSVČ, Česká republika, remote",
+        "period": "2024 až dosud",
+        "bullets": [
+          "Vyvíjím webové a mobilní aplikace, automatizace a integrace na míru pro klienty.",
+          "Sbírám, čistím a normalizuji data z více webových zdrojů a API; dodávám je do databází klientů, Google Sheets nebo dalších systémů.",
+          "Vyvíjím a provozuji vlastní předplatitelský SaaS pro sledování realitního trhu: datová pipeline, frontend, backend a e-mailové notifikace.",
+          "Integruji LLM (Claude, OpenAI API) do produktů a workflow a držím náklady na tokeny a automatizace pod kontrolou.",
+          "Vyvíjím v Claude Code nastaveném jako agilní tým: subagenti pro plánování, vývoj, QA a bezpečnost, hooky pro automatické kontroly.",
+          "Píšu byznysové analýzy a technické specifikace pro vývojáře a krátká shrnutí pro manažery."
+        ]
+      },
+      {
+        "title": "Senior Frontend Developer",
+        "org": "MSD IT Global Innovation Center, Praha",
+        "period": "2018 až 2024",
+        "bullets": [
+          "Vyvíjel jsem zákaznické farmaceutické weby pro britský, francouzský, italský a španělský trh (Tridion CMS, vlastní kód přes GitHub).",
+          "Migroval jsem data, obsah a vlastní kód z Tridion CMS do WordPress VIP.",
+          "Stavěl jsem registrační a přihlašovací flow včetně social loginu na Akamai Identity Cloud podle byznysových požadavků.",
+          "Implementoval jsem analytické měření přes Tealium a Google Tag Manager.",
+          "Pracoval jsem ve 14denních scrumových sprintech s JIRA a Confluence v mezinárodním týmu."
+        ]
+      },
+      {
+        "title": "HR Systems Specialist a Business Analyst",
+        "org": "Česká pojišťovna a.s., Praha",
+        "period": "2015 až 2018",
+        "bullets": [
+          "Byznysová analýza a požadavky pro SAP HR data a nový LMS; vývoj intranetu na SharePointu a WordPressu."
+        ]
+      },
+      {
+        "title": "IT podpora (L1 až L2)",
+        "org": "Ministerstvo životního prostředí ČR, Praha",
+        "period": "2012 až 2015",
+        "bullets": ["IT podpora první a druhé úrovně pro zaměstnance ministerstva."]
+      }
+    ],
+    "educationTitle": "Vzdělání",
+    "education": [
+      {
+        "degree": "Ing., Bezpečnostní technologie, systémy a management",
+        "school": "Univerzita Tomáše Bati ve Zlíně, 2017 až 2019"
+      },
+      {
+        "degree": "Bc., Softwarové technologie a management",
+        "school": "ČVUT v Praze, 2011 až 2015"
+      }
+    ],
+    "languagesTitle": "Jazyky",
+    "languages": ["Čeština (rodilý mluvčí)", "Angličtina (C1)", "Němčina (A2)"]
+  },
+  "contact": {
+    "title": "Pojďme se spojit",
+    "subtitle": "Mám zájem o full-remote AI a full-stack pozice i o freelance projekty. Obvykle odpovídám do jednoho dne.",
+    "email": "info@kopecjan.cz",
+    "linkedin": "LinkedIn",
+    "cv": "Stáhnout CV"
+  },
+  "footer": {
+    "copyright": "© {year} Jan Kopecký · IČO 07413335",
+    "site": "kopecjan.cz",
+    "linkedin": "LinkedIn",
+    "email": "info@kopecjan.cz"
+  },
+  "notFound": {
+    "title": "Stránka nenalezena",
+    "body": "Je tu jen jedna stránka. Všechno o Janovi najdete na ní.",
+    "home": "Zpět na úvod"
+  }
+}

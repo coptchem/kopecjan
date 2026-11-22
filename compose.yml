@@ -1,0 +1,39 @@
+# Hetzner deployment. The reverse proxy (Caddy / Traefik / nginx) that already runs on the
+# server terminates TLS and forwards to web:3000. It must pass X-Forwarded-For so that the
+# per-IP rate limit of /api/ask (milestone M3) sees the real client address.
+#
+#   docker compose up -d --build
+#
+# Caddy example (Caddyfile):
+#   kopecjan.cz, www.kopecjan.cz {
+#     reverse_proxy web:3000
+#     header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+#   }
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://kopecjan.cz}
+        NEXT_PUBLIC_ANALYTICS_URL: ${NEXT_PUBLIC_ANALYTICS_URL:-}
+        NEXT_PUBLIC_ANALYTICS_SITE_ID: ${NEXT_PUBLIC_ANALYTICS_SITE_ID:-}
+        NEXT_PUBLIC_CHAT_ENABLED: ${NEXT_PUBLIC_CHAT_ENABLED:-false}
+    image: kopecjan:latest
+    container_name: kopecjan
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    expose:
+      - "3000"
+    # Uncomment to publish directly without a proxy:
+    # ports:
+    #   - "127.0.0.1:3000:3000"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+    # Create once with: docker network create proxy
