@@ -58,15 +58,34 @@ export async function Projects() {
                     ))}
                   </div>
                 )}
-                {item.href && item.linkLabel && (
-                  <a
-                    href={item.href}
-                    className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-accent no-underline hover:underline"
-                    {...(internal ? {} : { target: "_blank", rel: "noopener" })}
-                  >
-                    {item.linkLabel}
-                    <Icon name={internal ? "arrowUp" : "arrowUpRight"} size={14} strokeWidth={2} />
-                  </a>
+                {((item.href && item.linkLabel) || item.repo) && (
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                    {item.href && item.linkLabel && (
+                      <a
+                        href={item.href}
+                        className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-accent no-underline hover:underline"
+                        {...(internal ? {} : { target: "_blank", rel: "noopener" })}
+                      >
+                        {item.linkLabel}
+                        <Icon
+                          name={internal ? "arrowUp" : "arrowUpRight"}
+                          size={14}
+                          strokeWidth={2}
+                        />
+                      </a>
+                    )}
+                    {item.repo && (
+                      <a
+                        href={item.repo}
+                        target="_blank"
+                        rel="noopener"
+                        className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-accent no-underline hover:underline"
+                      >
+                        <Icon name="github" size={14} />
+                        {t("sourceCode")}
+                      </a>
+                    )}
+                  </div>
                 )}
               </Card>
             );

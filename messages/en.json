@@ -110,6 +110,7 @@
         "href": "https://m-eng.cz"
       }
     ],
+    "sourceCode": "Source code",
     "items": [
       {
         "name": "Flatter.cz",
@@ -133,7 +134,8 @@
         "desc": "Tracks beer deals in eight Czech supermarket chains and lists them from the cheapest, by price per litre or per can. A daily scraper reads the chains' APIs and websites, the Claude API reads image-only PDF leaflets, and visitors can subscribe to e-mail alerts.",
         "tags": ["Python", "Claude API", "GitHub Actions", "PHP", "SQLite"],
         "linkLabel": "levne.pitpivo.cz",
-        "href": "https://levne.pitpivo.cz"
+        "href": "https://levne.pitpivo.cz",
+        "repo": "https://github.com/coptchem/pivo-v-akci"
       },
       {
         "name": "Pit Pivo",
