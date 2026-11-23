@@ -28,3 +28,6 @@ Thumbs.db
 
 # Claude Code personal settings
 .claude/settings.local.json
+
+# local embedding model cache
+.cache/

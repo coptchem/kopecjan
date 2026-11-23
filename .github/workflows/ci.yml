@@ -26,6 +26,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm test
+      - uses: actions/cache@v4
+        with:
+          path: .cache/models
+          key: embed-model-multilingual-e5-small-q8
+      - run: pnpm test:rag
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
