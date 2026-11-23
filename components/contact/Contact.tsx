@@ -37,6 +37,10 @@ export async function Contact() {
               <Icon name="linkedin" />
               {t("linkedin")}
             </ButtonLink>
+            <ButtonLink href={site.github} variant="secondary" target="_blank" rel="me noopener">
+              <Icon name="github" />
+              {t("github")}
+            </ButtonLink>
             <ButtonLink href={cvHref} variant="secondary" download>
               <Icon name="download" />
               {t("cv")}

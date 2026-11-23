@@ -67,7 +67,7 @@ Use `pnpm`. Node 22 LTS.
 
 ## Conventions
 
-- Components are small and typed; section components are server components, only `Chat`, `ThemeToggle`, `LocaleSwitch`, `MobileMenu` and `Experience` (collapsibles) are client components.
+- Components are small and typed; section components are server components, only `Chat`, `ThemeToggle`, `LocaleSwitch`, `MobileMenu`, `Experience` (collapsibles) and `ProjectsCarousel` are client components.
 - Styling: Tailwind utilities + the token variables (`bg-[var(--surface)]` style or `@theme` mapping in globals.css). No inline hex values in components.
 - Copy: `useTranslations()` / `getTranslations()` keys from `messages/*.json`. Never hardcode UI strings in components.
 - Commit messages: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`). One milestone = one PR.

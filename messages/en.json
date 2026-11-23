@@ -95,6 +95,10 @@
   "projects": {
     "title": "Projects",
     "subtitle": "Products I design, build and run myself.",
+    "prev": "Previous project",
+    "next": "Next project",
+    "pause": "Pause rotation",
+    "play": "Resume rotation",
     "items": [
       {
         "name": "Flatter.cz",
@@ -112,9 +116,9 @@
       },
       {
         "name": "Pit Pivo",
-        "badge": "Web app",
-        "desc": "A playful drink counter for pub nights: log beer and other drinks, see your own stats and a leaderboard of your friends, collect badges. No registration, no password.",
-        "tags": [],
+        "badge": "PWA",
+        "desc": "A pub drink counter for a group of friends: log beer, wine, shots or alcohol-free drinks with one tap, see an estimated blood alcohol level, a real-time leaderboard, XP, levels and badges. Works without registration.",
+        "tags": ["React", "TypeScript", "Vite", "Firebase", "Firestore", "Cloud Functions"],
         "linkLabel": "pitpivo.cz",
         "href": "https://pitpivo.cz"
       },
@@ -260,12 +264,14 @@
     "subtitle": "Open to full-remote AI and full-stack roles and freelance projects. I usually reply within a day.",
     "email": "info@kopecjan.cz",
     "linkedin": "LinkedIn",
+    "github": "GitHub",
     "cv": "Download CV"
   },
   "footer": {
     "copyright": "© {year} Jan Kopecký · IČO 07413335",
     "site": "kopecjan.cz",
     "linkedin": "LinkedIn",
+    "github": "GitHub",
     "email": "info@kopecjan.cz"
   },
   "notFound": {

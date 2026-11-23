@@ -209,3 +209,11 @@
     opacity: 1;
   }
 }
+
+/* Horizontal carousels: keep swipe and scroll, hide the scrollbar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

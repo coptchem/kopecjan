@@ -5,6 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge, Tag } from "@/components/ui/Tag";
 import type { ProjectItem } from "@/lib/messages";
+import { ProjectsCarousel } from "./ProjectsCarousel";
 
 export async function Projects() {
   const t = await getTranslations("projects");
@@ -14,11 +15,19 @@ export async function Projects() {
     <Section id="projects" lazy aria-labelledby="projects-title">
       <div className="flex flex-col gap-7">
         <SectionHeading id="projects-title" title={t("title")} subtitle={t("subtitle")} />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <ProjectsCarousel
+          labels={{
+            region: t("title"),
+            prev: t("prev"),
+            next: t("next"),
+            pause: t("pause"),
+            play: t("play"),
+          }}
+        >
           {items.map((item) => {
             const internal = item.href?.startsWith("#") ?? false;
             return (
-              <Card as="article" lift key={item.name} className="flex flex-col gap-3.5 p-6">
+              <Card as="article" lift key={item.name} className="flex w-full flex-col gap-3.5 p-6">
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-[18px] font-semibold">{item.name}</h3>
                   <Badge>{item.badge}</Badge>
@@ -44,7 +53,7 @@ export async function Projects() {
               </Card>
             );
           })}
-        </div>
+        </ProjectsCarousel>
       </div>
     </Section>
   );
