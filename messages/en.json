@@ -23,6 +23,7 @@
     "ctaCv": "Download CV",
     "cvHref": "/cv/Jan_Kopecky_CV.pdf",
     "linkedin": "LinkedIn",
+    "github": "GitHub",
     "email": "E-mail"
   },
   "ask": {
@@ -108,6 +109,14 @@
         "badge": "Beta",
         "desc": "Walks private sellers through the whole sale without an agency: cadastre check, AI photo editing, viewings, an indicative price from a price map, contracts and land registry documents.",
         "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"]
+      },
+      {
+        "name": "Pit Pivo",
+        "badge": "Web app",
+        "desc": "A playful drink counter for pub nights: log beer and other drinks, see your own stats and a leaderboard of your friends, collect badges. No registration, no password.",
+        "tags": [],
+        "linkLabel": "pitpivo.cz",
+        "href": "https://pitpivo.cz"
       },
       {
         "name": "Ask about Jan",

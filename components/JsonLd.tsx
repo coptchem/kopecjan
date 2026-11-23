@@ -14,7 +14,7 @@ export async function JsonLd() {
     jobTitle: hero("eyebrow"),
     url: site.url,
     email: "mailto:" + site.email,
-    sameAs: [site.linkedin],
+    sameAs: [site.linkedin, site.github],
     address: { "@type": "PostalAddress", addressCountry: "CZ" },
     knowsLanguage: languages,
     image: site.url + "/jan-kopecky.jpg",

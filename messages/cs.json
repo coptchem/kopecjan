@@ -23,6 +23,7 @@
     "ctaCv": "Stáhnout CV",
     "cvHref": "/cv/Jan_Kopecky_CV_CZ.pdf",
     "linkedin": "LinkedIn",
+    "github": "GitHub",
     "email": "E-mail"
   },
   "ask": {
@@ -108,6 +109,14 @@
         "badge": "Beta",
         "desc": "Provede majitele celým prodejem nemovitosti bez realitní kanceláře: kontrola katastru, úprava fotek s AI, prohlídky, orientační cena podle cenové mapy, smlouvy a podklady pro katastr.",
         "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"]
+      },
+      {
+        "name": "Pit Pivo",
+        "badge": "Web",
+        "desc": "Vtipné počítadlo drinků do hospody: zapíšete pivo i další nápoje, vidíte své statistiky a žebříček kamarádů a sbíráte odznaky. Bez registrace, bez hesla.",
+        "tags": [],
+        "linkLabel": "pitpivo.cz",
+        "href": "https://pitpivo.cz"
       },
       {
         "name": "Zeptejte se na Jana",
