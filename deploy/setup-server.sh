@@ -44,6 +44,11 @@ NEXT_PUBLIC_CHAT_ENABLED=false
 ANTHROPIC_API_KEY=
 ENV
 fi
+# Secret for the chat's proof-of-work challenges, generated once on the server.
+if ! grep -q '^ALTCHA_HMAC_KEY=.' "$DIR/.env"; then
+  sed -i '/^ALTCHA_HMAC_KEY=/d' "$DIR/.env"
+  echo "ALTCHA_HMAC_KEY=$(openssl rand -hex 32)" >> "$DIR/.env"
+fi
 
 echo "== Build and start"
 cd "$DIR"
@@ -52,7 +57,7 @@ docker compose ps
 
 echo "== Health"
 for i in $(seq 1 30); do
-  if docker compose exec -T web wget -qO- http://127.0.0.1:3000/api/health; then
+  if docker compose exec -T web node -e "fetch('http://127.0.0.1:3000/api/health').then(r=>r.text()).then(t=>{console.log(t);process.exit(0)},()=>process.exit(1))"; then
     echo
     echo "OK: web is healthy. Point DNS for kopecjan.cz and www to this server."
     exit 0
