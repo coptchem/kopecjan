@@ -110,6 +110,7 @@
         "href": "https://m-eng.cz"
       }
     ],
+    "sourceCode": "Zdrojový kód",
     "items": [
       {
         "name": "Flatter.cz",
@@ -133,7 +134,8 @@
         "desc": "Hlídá akční ceny piva v osmi českých supermarketech a řadí je od nejlevnějšího, podle ceny za litr nebo za kus. Scraper každé ráno čte API a weby řetězců, obrázkové PDF letáky přečte Claude API, a kdo chce, dostane e-mailové upozornění.",
         "tags": ["Python", "Claude API", "GitHub Actions", "PHP", "SQLite"],
         "linkLabel": "levne.pitpivo.cz",
-        "href": "https://levne.pitpivo.cz"
+        "href": "https://levne.pitpivo.cz",
+        "repo": "https://github.com/coptchem/pivo-v-akci"
       },
       {
         "name": "Pit Pivo",

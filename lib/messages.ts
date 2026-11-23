@@ -10,6 +10,8 @@ export type ProjectItem = {
   /** Optional: a project without a public URL shows no link. */
   linkLabel?: string;
   href?: string;
+  /** Optional public source code, shown as a GitHub link next to the main link. */
+  repo?: string;
 };
 
 export type SkillGroup = { name: string; tags: string[] };
