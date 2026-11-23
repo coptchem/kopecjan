@@ -22,7 +22,9 @@ pnpm test:e2e              # playwright smoke tests against a production build (
 pnpm build                 # check-dashes + next build
 pnpm start                 # serve the production build
 pnpm check-dashes          # fails on em/en dashes in messages/ and content/
-pnpm index                 # rebuild data/index.json for the assistant (needs OPENAI_API_KEY, step 2)
+pnpm index                 # rebuild data/index.json (local embedding model, no key; runs in pnpm build too)
+pnpm index:docker          # the same inside a Linux container: use this on Windows (see below)
+pnpm test:rag              # retrieval check: expected sources in the top 3, off-topic below the threshold
 ```
 
 Node 22 LTS and pnpm (via corepack). On Windows, `pnpm build` produces a regular build; the
@@ -33,14 +35,17 @@ Windows, so it is only set in the Dockerfile and in CI).
 
 ```
 app/[locale]/        layout (fonts, theme, i18n, metadata), the one page, OG image, 404
-app/api/health       container health check
-components/          one folder per section, ui/ primitives, chat/ (placeholder until step 2)
+app/api/             ask (assistant), challenge (proof of work), health
+components/          one folder per section, ui/ primitives, chat/ (live chat and the placeholder)
 lib/i18n/            next-intl routing, request config, navigation helpers
 lib/site.ts          site constants (URL, e-mail, LinkedIn, CV paths)
 lib/features.ts      feature flags (NEXT_PUBLIC_CHAT_ENABLED)
 messages/            UI copy, en.json and cs.json (same keys, checked by a unit test)
+lib/rag/             documents, embed, index, retrieve, prompt, parse, answer, sanitize
+lib/rate-limit.ts, lib/bot-guard.ts   limits and proof of work for /api/ask
+content/, data/      assistant documents and the generated index
 public/cv/           the two CV PDFs; public/jan-kopecky.jpg the photo; public/fonts/ Inter (self-hosted)
-scripts/             check-dashes.ts (and build-index.ts in step 2)
+scripts/             check-dashes, build-index, test-rag, fetch-model, index-docker.sh
 tests/unit, tests/e2e
 docs/                specification and STATUS.md
 ```
@@ -52,12 +57,23 @@ never use em or en dashes (`pnpm check-dashes` runs in the build and in CI) (a `
 only produces a warning). The CV PDFs in `public/cv/`
 are the source of truth for experience and skills.
 
-## Step 2: the assistant
+## The assistant ("Ask about Jan")
 
-The chat panel is rendered as an inactive placeholder until the RAG pipeline lands
-(`docs/04-rag-spec.md`, milestones M2 to M4 in `docs/05-implementation-plan.md`). It will be
-switched on with `NEXT_PUBLIC_CHAT_ENABLED=true` once `/api/ask` exists. Content for the assistant
-goes to `content/` (see `docs/06-content-guide.md`); `pnpm index` turns it into `data/index.json`.
+Content in `content/**/*.md` (see `docs/06-content-guide.md`; documents with `draft: true` are skipped) is
+chunked and embedded locally by `pnpm index` into `data/index.json` (committed). `/api/ask` embeds the question
+with the same local model, finds the closest chunks and streams an answer from Claude Haiku. Details in
+`docs/04-rag-spec.md`. The chat is switched on with `NEXT_PUBLIC_CHAT_ENABLED=true` (build time); without it the
+page shows the "Coming soon" placeholder.
+
+After editing `content/`: run `pnpm index` (on Windows `pnpm index:docker`), then `pnpm test:rag`, and commit
+`data/`.
+
+Protection against abuse, in order: same-origin check, honeypot, proof of work (`/api/challenge`, self-hosted
+ALTCHA), 10 questions per hour per hashed IP, 500 per day for the site, questions up to 500 characters,
+answers up to 350 tokens, and the spend limit on the Anthropic workspace.
+
+Windows: the native embedding model crashes because Windows ships an older `onnxruntime.dll` in System32. Use
+`pnpm index:docker` for the index; `/api/ask` then answers locally with the fallback. Everything else works.
 
 ## Deployment
 

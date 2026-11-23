@@ -13,7 +13,7 @@ Specification lives in `docs/`. Read `docs/01-overview.md` first, then the doc f
 - i18n: `next-intl`, locales `en` (default, no prefix) and `cs` (`/cs`), dictionaries in `messages/en.json` and `messages/cs.json`
 - Theme: `next-themes`, class strategy (`html.dark`), persisted in localStorage, respects `prefers-color-scheme` on first visit
 - RAG: content in `content/**/*.md` → `scripts/build-index.ts` → `data/index.json` (committed) → cosine search in Node at runtime → Claude API (`claude-haiku-5-5`) with streaming. No vector database in v1. See `docs/04-rag-spec.md`.
-- Embeddings: OpenAI `text-embedding-3-small` (multilingual, cheap). Switching provider is allowed only inside `lib/rag/embed.ts`.
+- Embeddings: `multilingual-e5-small` computed locally with transformers.js (no API key, no per-request cost; decided with Jan on 2026-11-22). Switching provider is allowed only inside `lib/rag/embed.ts`.
 - Hosting: Docker image (`next build` standalone output) on Jan's Hetzner server behind a reverse proxy. Must also run on Vercel without code changes.
 - Tests: Vitest (unit), Playwright (smoke), ESLint + Prettier, `tsc --noEmit`. CI: GitHub Actions.
 
@@ -26,7 +26,7 @@ Specification lives in `docs/`. Read `docs/01-overview.md` first, then the doc f
 5. **Cost control.** Per-IP rate limit (default 10 questions / hour) and a global daily cap (default 500 questions / day) are mandatory before `/api/ask` goes live. Max question length 500 characters. Max answer 350 output tokens.
 6. **Accessibility.** Real `<button>`, `<a>`, `<input>` + `<label>`; keyboard reachable chat; `aria-live="polite"` on the streaming answer; colour contrast ≥ 4.5:1 for text in both themes (tokens in `docs/02-design-spec.md` already pass).
 7. **Performance.** Lighthouse ≥ 95 on mobile for Performance, Accessibility, Best Practices, SEO. Photo served through `next/image`, fonts self-hosted via `next/font` (Inter).
-8. **Secrets** only in `.env.local` / server env: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`. Never read them in client components. `.env.example` lists every variable with a comment.
+8. **Secrets** only in `.env.local` / server env: `ANTHROPIC_API_KEY`, `ALTCHA_HMAC_KEY`. Never read them in client components. `.env.example` lists every variable with a comment.
 
 ## Repository layout
 
@@ -59,7 +59,8 @@ pnpm start               next start
 pnpm lint                eslint + prettier --check + tsc --noEmit
 pnpm test                vitest run
 pnpm test:e2e            playwright test
-pnpm index               tsx scripts/build-index.ts   (needs OPENAI_API_KEY)
+pnpm index               tsx scripts/build-index.ts   (local model; on Windows use pnpm index:docker)
+pnpm test:rag            retrieval check against tests/rag/questions.json
 ```
 
 Use `pnpm`. Node 22 LTS.

@@ -23,7 +23,8 @@ services:
         required: false
     expose:
       - "3000"
-    mem_limit: 768m
+    # Next.js (~100 MB) plus the local embedding model (~430 MB resident), with headroom.
+    mem_limit: 1200m
 
   caddy:
     image: caddy:2.10-alpine
@@ -38,6 +39,12 @@ services:
       - caddy_config:/config
     depends_on:
       - web
+
+networks:
+  default:
+    # Without IPv6 on the network, Docker's proxy hands Caddy the bridge gateway (172.18.0.1) as
+    # the source of every IPv6 visitor, and they would all share one rate-limit bucket.
+    enable_ipv6: true
 
 volumes:
   caddy_data:

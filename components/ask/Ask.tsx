@@ -1,7 +1,9 @@
 import { getTranslations } from "next-intl/server";
+import { ChatPanel } from "@/components/chat/ChatPanel";
 import { ChatPlaceholder } from "@/components/chat/ChatPlaceholder";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { features } from "@/lib/features";
 import { HowItWorks } from "./HowItWorks";
 
 export async function Ask() {
@@ -13,8 +15,7 @@ export async function Ask() {
         <SectionHeading id="ask-title" title={t("title")} subtitle={t("subtitle")} />
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
           <div className="flex min-w-0 flex-col gap-3">
-            {/* The live Chat component (M4) replaces the placeholder behind features.chatEnabled. */}
-            <ChatPlaceholder />
+            {features.chatEnabled ? <ChatPanel /> : <ChatPlaceholder />}
             <p className="text-[13px] text-muted">{t("note")}</p>
           </div>
           <HowItWorks />

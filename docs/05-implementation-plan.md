@@ -51,7 +51,7 @@ Acceptance: every one of the 7 designed states is reachable and matches the artb
 
 - `Dockerfile` (multi-stage, `output: "standalone"`), `compose.yml` for the Hetzner server with the reverse proxy Jan already uses (Caddy or Traefik; document which) and `x-forwarded-for` passthrough, health check route `/api/health`.
 - GitHub Actions: build and push the image on tag, deploy via SSH (or a Vercel project as the alternative; both must work from the same code).
-- Env on the server: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` (only needed for `pnpm index`, not at runtime), `RAG_MODEL`, `RATE_LIMIT_PER_HOUR`, `DAILY_CAP`, `NEXT_PUBLIC_SITE_URL`.
+- Env on the server: `ANTHROPIC_API_KEY`, `ALTCHA_HMAC_KEY`, `RAG_MODEL`, `RATE_LIMIT_PER_HOUR`, `DAILY_CAP`, `NEXT_PUBLIC_SITE_URL`.
 - DNS for kopecjan.cz, HTTPS, HSTS, security headers (CSP without `unsafe-inline` where Next allows it, Referrer-Policy, X-Content-Type-Options).
 
 Acceptance: production URL serves both locales over HTTPS with the headers above; a real question gets a sourced answer in under 5 s; logs show token usage; `pnpm stats` reports cost.

@@ -9,8 +9,7 @@ test.describe("kopecjan.cz", () => {
     for (const id of ["ask", "projects", "skills", "experience", "contact"]) {
       await expect(page.locator(`#${id}`)).toBeVisible();
     }
-    await expect(page.getByTestId("chat-placeholder")).toBeVisible();
-    await expect(page.locator("#ask-input")).toBeDisabled();
+    await expect(page.getByTestId("chat")).toBeVisible();
   });
 
   test("Czech home is served at /cs", async ({ page }) => {

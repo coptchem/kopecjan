@@ -28,3 +28,8 @@ Thumbs.db
 
 # Claude Code personal settings
 .claude/settings.local.json
+
+# Anthropic API ke
+kopecjan-web.txt
+# local embedding model cache
+.cache/
