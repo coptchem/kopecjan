@@ -125,7 +125,14 @@ export async function POST(request: Request) {
     "X-RateLimit-Remaining": String(limit.remaining),
   });
 
+  // Aborted when the visitor disconnects (cancel) or the request signal fires.
+  const disconnect = new AbortController();
+  const abortSignal = AbortSignal.any([request.signal, disconnect.signal]);
+
   const stream = new ReadableStream<Uint8Array>({
+    cancel() {
+      disconnect.abort();
+    },
     async start(controller) {
       let closed = false;
       const send = (event: Event) => {
@@ -139,7 +146,11 @@ export async function POST(request: Request) {
       const finish = () => {
         if (closed) return;
         closed = true;
-        controller.close();
+        try {
+          controller.close();
+        } catch {
+          // already cancelled by the client
+        }
       };
 
       // 5. Below the threshold (or no key configured): fallback without calling the model
@@ -164,7 +175,7 @@ export async function POST(request: Request) {
           sanitized.question,
           hits,
           (text) => send({ type: "token", text }),
-          request.signal,
+          abortSignal,
         );
       } catch {
         log({

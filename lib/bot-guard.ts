@@ -40,11 +40,19 @@ export async function newChallenge(): Promise<Challenge> {
 
 export type ProofPayload = { challenge: Challenge; solution: Solution };
 
-/** Signatures of solutions already used, kept until their challenge expires. */
+/**
+ * Signatures of solutions already used, kept for the challenge lifetime. Entries are inserted
+ * with now + TTL, so the map is ordered by expiry and the sweep stops at the first live entry.
+ * The size cap keeps memory bounded under a flood; when full, new proofs are refused.
+ */
 const used = new Map<string, number>();
+const MAX_USED = 50_000;
 
 function sweep(now: number) {
-  for (const [sig, expires] of used) if (expires < now) used.delete(sig);
+  for (const [sig, expires] of used) {
+    if (expires >= now) break;
+    used.delete(sig);
+  }
 }
 
 export async function verifyProof(payload: unknown): Promise<boolean> {
@@ -55,7 +63,10 @@ export async function verifyProof(payload: unknown): Promise<boolean> {
 
   const now = Date.now();
   sweep(now);
-  if (used.has(challenge.signature)) return false;
+  const sig = challenge.signature;
+  if (used.has(sig) || used.size >= MAX_USED) return false;
+  // Reserve before the async check, so parallel copies of the same proof cannot all pass.
+  used.set(sig, now + CHALLENGE_TTL_MS);
 
   const { signature, key } = secrets();
   try {
@@ -66,13 +77,12 @@ export async function verifyProof(payload: unknown): Promise<boolean> {
       hmacSignatureSecret: signature,
       hmacKeySignatureSecret: key,
     });
-    if (!result.verified) return false;
+    if (result.verified) return true;
   } catch {
-    return false;
+    // fall through
   }
-  const expiresAt = (challenge.parameters.expiresAt ?? 0) * 1000 || now + CHALLENGE_TTL_MS;
-  used.set(challenge.signature, expiresAt);
-  return true;
+  used.delete(sig);
+  return false;
 }
 
 /**

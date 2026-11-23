@@ -3,11 +3,11 @@ node_modules
 out
 .git
 .github
+.cache
 cv
 docs
 tests
 playwright-report
 test-results
-.env
-.env.local
-.cache
+.env*
+!.env.example

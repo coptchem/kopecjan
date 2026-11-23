@@ -40,6 +40,12 @@ services:
     depends_on:
       - web
 
+networks:
+  default:
+    # Without IPv6 on the network, Docker's proxy hands Caddy the bridge gateway (172.18.0.1) as
+    # the source of every IPv6 visitor, and they would all share one rate-limit bucket.
+    enable_ipv6: true
+
 volumes:
   caddy_data:
   caddy_config:

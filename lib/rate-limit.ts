@@ -117,8 +117,32 @@ export class RateLimiter {
 const globalForLimiter = globalThis as unknown as { __askLimiter?: RateLimiter };
 export const askLimiter = (globalForLimiter.__askLimiter ??= new RateLimiter());
 
-/** First address in X-Forwarded-For (set by Caddy), else X-Real-IP, else a constant. */
+/**
+ * Rate-limit identity of the client: the first address in X-Forwarded-For (Caddy overwrites the
+ * header with the real peer, so it cannot be spoofed). IPv6 addresses are reduced to their /64
+ * prefix, because one visitor usually controls a whole /64 and could rotate through it.
+ */
 export function clientIp(headers: Headers): string {
   const forwarded = headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return forwarded || headers.get("x-real-ip")?.trim() || "unknown";
+  const ip = forwarded || headers.get("x-real-ip")?.trim() || "unknown";
+  return ip.includes(":") ? ipv6Prefix64(ip) : ip;
+}
+
+export function ipv6Prefix64(ip: string): string {
+  const mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/i.exec(ip);
+  if (mapped) return mapped[1]!;
+  const addr = ip
+    .replace(/^\[|\]$/g, "")
+    .split("%")[0]!
+    .toLowerCase();
+  const [head = "", tail = ""] = addr.split("::");
+  const left = head ? head.split(":") : [];
+  const right = tail ? tail.split(":") : [];
+  const groups = addr.includes("::")
+    ? [...left, ...Array<string>(Math.max(0, 8 - left.length - right.length)).fill("0"), ...right]
+    : left;
+  return `${groups
+    .slice(0, 4)
+    .map((g) => (parseInt(g, 16) || 0).toString(16))
+    .join(":")}::/64`;
 }

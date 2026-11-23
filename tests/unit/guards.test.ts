@@ -47,6 +47,16 @@ describe("RateLimiter", () => {
     expect(clientIp(new Headers({ "x-forwarded-for": "8.8.8.8, 10.0.0.1" }))).toBe("8.8.8.8");
     expect(clientIp(new Headers())).toBe("unknown");
   });
+
+  it("groups IPv6 clients by /64", () => {
+    const a = clientIp(new Headers({ "x-forwarded-for": "2a01:4f8:c013:5e91::1" }));
+    const b = clientIp(new Headers({ "x-forwarded-for": "2a01:4f8:c013:5e91:abcd:1:2:3" }));
+    expect(a).toBe("2a01:4f8:c013:5e91::/64");
+    expect(b).toBe(a);
+    expect(clientIp(new Headers({ "x-forwarded-for": "2a01:4f8:c013:5e92::1" }))).not.toBe(a);
+    expect(clientIp(new Headers({ "x-forwarded-for": "::ffff:8.8.4.4" }))).toBe("8.8.4.4");
+    expect(clientIp(new Headers({ "x-forwarded-for": "2001:db8::" }))).toBe("2001:db8:0:0::/64");
+  });
 });
 
 describe("proof of work", () => {
@@ -59,7 +69,11 @@ describe("proof of work", () => {
     const tampered = { challenge, solution: { ...solution!, derivedKey: forgedKey } };
     expect(await verifyProof(tampered)).toBe(false);
 
-    expect(await verifyProof({ challenge, solution })).toBe(true);
+    // parallel copies of one proof: exactly one passes
+    const results = await Promise.all(
+      Array.from({ length: 5 }, () => verifyProof({ challenge, solution })),
+    );
+    expect(results.filter(Boolean)).toHaveLength(1);
     expect(await verifyProof({ challenge, solution })).toBe(false);
     expect(await verifyProof(null)).toBe(false);
     expect(await verifyProof({ challenge: { parameters: challenge.parameters }, solution })).toBe(
