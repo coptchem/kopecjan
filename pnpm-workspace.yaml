@@ -6,3 +6,7 @@ allowBuilds:
   unrs-resolver: true
   onnxruntime-node: true
   protobufjs: false
+
+# Next.js pins postcss 8.4.31 (build-time advisories); use a patched release.
+overrides:
+  "next>postcss": "^8.5.23"

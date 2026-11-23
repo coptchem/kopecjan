@@ -7,6 +7,11 @@
 SCRIPT="${1:-build-index}"; shift || true
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# Git Bash on Windows: give Docker a Windows path and stop MSYS from rewriting /src, /models etc.
+if pwd -W >/dev/null 2>&1; then
+  ROOT="$(cd "$ROOT" && pwd -W)"
+  export MSYS_NO_PATHCONV=1
+fi
 docker run --rm \
   -v "$ROOT:/src" \
   -v kopecjan-index-models:/models \
@@ -16,7 +21,7 @@ docker run --rm \
     set -e
     corepack enable >/dev/null
     mkdir -p /app && cd /src
-    tar --exclude=./node_modules --exclude=./.next --exclude=./.git --exclude=./.cache -cf - . | tar -xf - -C /app
+    tar --exclude=./node_modules --exclude=./.next --exclude=./.git --exclude=./.cache --exclude=./.env* --exclude=./.claude --exclude=./kopecjan-web.txt -cf - . | tar -xf - -C /app
     cd /app
     pnpm install --frozen-lockfile --silent
     pnpm exec tsx scripts/$0.ts "$@"
