@@ -21,6 +21,14 @@ export async function Footer() {
           >
             {t("linkedin")}
           </a>
+          <a
+            href={site.github}
+            target="_blank"
+            rel="me noopener"
+            className="text-muted no-underline hover:text-accent"
+          >
+            {t("github")}
+          </a>
           <a href={"mailto:" + site.email} className="text-muted no-underline hover:text-accent">
             {t("email")}
           </a>

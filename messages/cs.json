@@ -95,6 +95,10 @@
   "projects": {
     "title": "Projekty",
     "subtitle": "Produkty, které sám navrhuji, stavím a provozuji.",
+    "prev": "Předchozí projekt",
+    "next": "Další projekt",
+    "pause": "Zastavit posouvání",
+    "play": "Spustit posouvání",
     "items": [
       {
         "name": "Flatter.cz",
@@ -112,9 +116,9 @@
       },
       {
         "name": "Pit Pivo",
-        "badge": "Web",
-        "desc": "Vtipné počítadlo drinků do hospody: zapíšete pivo i další nápoje, vidíte své statistiky a žebříček kamarádů a sbíráte odznaky. Bez registrace, bez hesla.",
-        "tags": [],
+        "badge": "PWA",
+        "desc": "Hospodské počítadlo drinků pro partu kamarádů: pivo, víno, panáky i nealko jedním ťuknutím, odhad promile, žebříček v reálném čase, XP, úrovně a odznaky. Funguje bez registrace.",
+        "tags": ["React", "TypeScript", "Vite", "Firebase", "Firestore", "Cloud Functions"],
         "linkLabel": "pitpivo.cz",
         "href": "https://pitpivo.cz"
       },
@@ -260,12 +264,14 @@
     "subtitle": "Mám zájem o full-remote AI a full-stack pozice i o freelance projekty. Obvykle odpovídám do jednoho dne.",
     "email": "info@kopecjan.cz",
     "linkedin": "LinkedIn",
+    "github": "GitHub",
     "cv": "Stáhnout CV"
   },
   "footer": {
     "copyright": "© {year} Jan Kopecký · IČO 07413335",
     "site": "kopecjan.cz",
     "linkedin": "LinkedIn",
+    "github": "GitHub",
     "email": "info@kopecjan.cz"
   },
   "notFound": {

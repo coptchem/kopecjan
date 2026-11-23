@@ -17,6 +17,8 @@ export type IconName =
   | "chevron"
   | "send"
   | "stop"
+  | "pause"
+  | "play"
   | "retry"
   | "clock"
   | "alert"
@@ -42,6 +44,8 @@ const strokeIcons: Partial<Record<IconName, string>> = {
   retry: "M21 12a9 9 0 1 1-2.6-6.4 M21 3v6h-6",
   clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 7v5l3 2",
   alert: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 8v4M12 16h.01",
+  pause: "M9 5v14M15 5v14",
+  play: "M7 5l12 7-12 7z",
   file: "M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z M14 3v5h5",
 };
 
