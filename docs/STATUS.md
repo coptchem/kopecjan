@@ -1,8 +1,11 @@
 # Status
 
 Last update: 2026-11-23. Step 1 (the website) is live on https://kopecjan.cz. Step 2 (the assistant, M2 to M4)
-is built on branch `feat/m2-m4-rag`; the chat goes live once `ANTHROPIC_API_KEY` is on the server and
-`NEXT_PUBLIC_CHAT_ENABLED=true` is set.
+is live too since 2026-11-23 (merged to `main`, `NEXT_PUBLIC_CHAT_ENABLED=true` on the server). Until the
+drafts in `content/` are filled, it answers from the CV only.
+
+Copy changes on 2026-11-23: the chat hint no longer says answers may contain mistakes; TAO Real Estate has
+no public link (its beta sits behind basic auth), so project links are optional in `messages/*.json`.
 
 | Milestone | State | Notes |
 | --- | --- | --- |

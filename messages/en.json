@@ -85,7 +85,7 @@
     "limitPlaceholder": "Limit reached, try again later",
     "send": "Send",
     "stop": "Stop generating",
-    "hint": "Press Enter to send. Answers may contain mistakes; the CV is the source of truth.",
+    "hint": "Press Enter to send. The CV is the source of truth.",
     "inactiveBadge": "Coming soon",
     "inactiveTitle": "The assistant is almost ready.",
     "inactiveBody": "It will be switched on in a few days. Until then, download the CV or write to Jan directly.",
@@ -107,9 +107,7 @@
         "name": "TAO Real Estate",
         "badge": "Beta",
         "desc": "Walks private sellers through the whole sale without an agency: cadastre check, AI photo editing, viewings, an indicative price from a price map, contracts and land registry documents.",
-        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"],
-        "linkLabel": "taoreal.cz",
-        "href": "https://taoreal.cz"
+        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"]
       },
       {
         "name": "Ask about Jan",

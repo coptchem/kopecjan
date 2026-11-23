@@ -7,7 +7,7 @@
 #   3. clones the repo to /opt/kopecjan and creates an empty .env (mode 600)
 #   4. builds and starts the stack (caddy + web)
 #
-# Nothing else on the server is touched (the other service keeps running).
+# Nothing else on the server is touched.
 set -euo pipefail
 
 REPO=https://github.com/coptchem/kopecjan.git

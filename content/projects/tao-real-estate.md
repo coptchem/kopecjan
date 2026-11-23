@@ -3,7 +3,6 @@ title: TAO Real Estate
 slug: tao-real-estate
 lang: en
 kind: project
-url: https://taoreal.cz
 priority: 1
 draft: true
 ---

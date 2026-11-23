@@ -85,7 +85,7 @@
     "limitPlaceholder": "Limit vyčerpán, zkuste to později",
     "send": "Odeslat",
     "stop": "Zastavit generování",
-    "hint": "Odeslat klávesou Enter. Odpovědi mohou obsahovat chyby; zdrojem pravdy je CV.",
+    "hint": "Odeslat klávesou Enter. Zdrojem pravdy je CV.",
     "inactiveBadge": "Již brzy",
     "inactiveTitle": "Asistent je téměř hotový.",
     "inactiveBody": "Spustím ho během několika dní. Do té doby si stáhněte CV nebo mi napište přímo.",
@@ -107,9 +107,7 @@
         "name": "TAO Real Estate",
         "badge": "Beta",
         "desc": "Provede majitele celým prodejem nemovitosti bez realitní kanceláře: kontrola katastru, úprava fotek s AI, prohlídky, orientační cena podle cenové mapy, smlouvy a podklady pro katastr.",
-        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"],
-        "linkLabel": "taoreal.cz",
-        "href": "https://taoreal.cz"
+        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"]
       },
       {
         "name": "Zeptejte se na Jana",
