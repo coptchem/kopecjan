@@ -37,7 +37,22 @@ export async function Experience() {
               <summary className="flex cursor-pointer items-start justify-between gap-4 rounded-md">
                 <span className="flex flex-col gap-[3px]">
                   <span className="text-[17px] font-semibold">{job.title}</span>
-                  <span className="text-[14px] text-muted">{job.org}</span>
+                  <span className="text-[14px] text-muted">
+                    {job.org}
+                    {job.link && (
+                      <>
+                        {", "}
+                        <a
+                          href={job.link.href}
+                          target="_blank"
+                          rel="noopener"
+                          className="font-semibold text-accent no-underline hover:underline"
+                        >
+                          {job.link.label}
+                        </a>
+                      </>
+                    )}
+                  </span>
                 </span>
                 <span className="flex shrink-0 items-center gap-2.5">
                   <span className="text-[13px] font-semibold whitespace-nowrap text-accent">

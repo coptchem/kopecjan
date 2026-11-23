@@ -14,7 +14,16 @@ const controlClass =
  * Advances one card every 6 s; pauses on hover, on keyboard focus, with the pause button,
  * and never autoplays when the visitor prefers reduced motion (WCAG 2.2.2).
  */
-export function ProjectsCarousel({ children, labels }: { children: ReactNode; labels: Labels }) {
+export function ProjectsCarousel({
+  children,
+  labels,
+  aside,
+}: {
+  children: ReactNode;
+  labels: Labels;
+  /** Shown left of the controls (wraps above them on narrow screens). */
+  aside?: ReactNode;
+}) {
   const track = useRef<HTMLUListElement>(null);
   const [playing, setPlaying] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -70,31 +79,34 @@ export function ProjectsCarousel({ children, labels }: { children: ReactNode; la
           </li>
         ))}
       </ul>
-      <div className="flex justify-end gap-2">
-        <button
-          type="button"
-          className={controlClass}
-          aria-label={labels.prev}
-          onClick={() => step(-1)}
-        >
-          <Icon name="chevron" className="rotate-90" />
-        </button>
-        <button
-          type="button"
-          className={controlClass}
-          aria-label={playing ? labels.pause : labels.play}
-          onClick={() => setPlaying((p) => !p)}
-        >
-          <Icon name={playing ? "pause" : "play"} />
-        </button>
-        <button
-          type="button"
-          className={controlClass}
-          aria-label={labels.next}
-          onClick={() => step(1)}
-        >
-          <Icon name="chevron" className="-rotate-90" />
-        </button>
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <div>{aside}</div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            className={controlClass}
+            aria-label={labels.prev}
+            onClick={() => step(-1)}
+          >
+            <Icon name="chevron" className="rotate-90" />
+          </button>
+          <button
+            type="button"
+            className={controlClass}
+            aria-label={playing ? labels.pause : labels.play}
+            onClick={() => setPlaying((p) => !p)}
+          >
+            <Icon name={playing ? "pause" : "play"} />
+          </button>
+          <button
+            type="button"
+            className={controlClass}
+            aria-label={labels.next}
+            onClick={() => step(1)}
+          >
+            <Icon name="chevron" className="-rotate-90" />
+          </button>
+        </div>
       </div>
     </div>
   );

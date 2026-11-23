@@ -99,6 +99,17 @@
     "next": "Další projekt",
     "pause": "Zastavit posouvání",
     "play": "Spustit posouvání",
+    "clientSitesTitle": "Weby pro klienty:",
+    "clientSites": [
+      {
+        "label": "tisknive3d.cz",
+        "href": "https://tisknive3d.cz"
+      },
+      {
+        "label": "m-eng.cz",
+        "href": "https://m-eng.cz"
+      }
+    ],
     "items": [
       {
         "name": "Flatter.cz",
@@ -216,7 +227,11 @@
           "Integruji LLM (Claude, OpenAI API) do produktů a workflow a držím náklady na tokeny a automatizace pod kontrolou.",
           "Vyvíjím v Claude Code nastaveném jako agilní tým: subagenti pro plánování, vývoj, QA a bezpečnost, hooky pro automatické kontroly.",
           "Píšu byznysové analýzy a technické specifikace pro vývojáře a krátká shrnutí pro manažery."
-        ]
+        ],
+        "link": {
+          "label": "automateam.cz",
+          "href": "https://www.automateam.cz"
+        }
       },
       {
         "title": "Senior Frontend Developer",

@@ -15,6 +15,24 @@ draft: true
 
 [TODO: 3 to 6 concrete deliverables with the technology used]
 
+## Company
+
+Jan runs his freelance work as Automateam (https://www.automateam.cz).
+
+[TODO: optional, one or two sentences: what Automateam offers, since when, whether it is just you or you work with others]
+
+## Client websites
+
+Both clients agreed to be named as references.
+
+### TiskniVe3D (tisknive3d.cz)
+
+[TODO: who the client is and what they needed, what you built (design, frontend, contact form, photo gallery, hosting, SEO), stack (React and Vite), when and how long it took, anything the client said about the result]
+
+### M-Engineering (m-eng.cz)
+
+[TODO: who the client is and what they needed, what you built, stack (React and Vite), when and how long it took, languages of the site, anything the client said about the result]
+
 ## Tools and process
 
 [TODO]

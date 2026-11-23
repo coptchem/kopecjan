@@ -99,6 +99,17 @@
     "next": "Next project",
     "pause": "Pause rotation",
     "play": "Resume rotation",
+    "clientSitesTitle": "Websites for clients:",
+    "clientSites": [
+      {
+        "label": "tisknive3d.cz",
+        "href": "https://tisknive3d.cz"
+      },
+      {
+        "label": "m-eng.cz",
+        "href": "https://m-eng.cz"
+      }
+    ],
     "items": [
       {
         "name": "Flatter.cz",
@@ -216,7 +227,11 @@
           "Integrate LLMs (Claude, OpenAI APIs) into products and workflows while keeping token and automation costs under control.",
           "Develop in Claude Code set up like an agile team: subagents for planning, development, QA and security, hooks for automated checks.",
           "Write business analyses and technical specifications for developers, and short summaries for managers."
-        ]
+        ],
+        "link": {
+          "label": "automateam.cz",
+          "href": "https://www.automateam.cz"
+        }
       },
       {
         "title": "Senior Frontend Developer",

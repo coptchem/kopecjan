@@ -4,12 +4,13 @@ import { Icon } from "@/components/ui/Icon";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge, Tag } from "@/components/ui/Tag";
-import type { ProjectItem } from "@/lib/messages";
+import type { ExternalLink, ProjectItem } from "@/lib/messages";
 import { ProjectsCarousel } from "./ProjectsCarousel";
 
 export async function Projects() {
   const t = await getTranslations("projects");
   const items = t.raw("items") as ProjectItem[];
+  const clientSites = t.raw("clientSites") as ExternalLink[];
 
   return (
     <Section id="projects" lazy aria-labelledby="projects-title">
@@ -23,6 +24,23 @@ export async function Projects() {
             pause: t("pause"),
             play: t("play"),
           }}
+          aside={
+            <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px] text-muted">
+              <span>{t("clientSitesTitle")}</span>
+              {clientSites.map((site) => (
+                <a
+                  key={site.href}
+                  href={site.href}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-1 font-semibold text-accent no-underline hover:underline"
+                >
+                  {site.label}
+                  <Icon name="arrowUpRight" size={14} strokeWidth={2} />
+                </a>
+              ))}
+            </p>
+          }
         >
           {items.map((item) => {
             const internal = item.href?.startsWith("#") ?? false;
