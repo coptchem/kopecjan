@@ -151,7 +151,8 @@
         "desc": "This website's assistant: answers questions about me from my own documents, with sources.",
         "tags": ["Embeddings", "Vector search", "Claude API", "Next.js"],
         "linkLabel": "Try it above",
-        "href": "#ask"
+        "href": "#ask",
+        "repo": "https://github.com/coptchem/kopecjan"
       }
     ]
   },
@@ -173,6 +174,7 @@
           "Anthropic Claude",
           "OpenAI GPT",
           "Google Gemini",
+          "RAG (embeddings, vector search)",
           "LLM workflows",
           "Prompt design",
           "Token & cost control"
@@ -214,7 +216,7 @@
           "GitHub Actions",
           "Bitbucket Pipelines",
           "Docker",
-          "Automated testing & linting",
+          "Automated testing (Vitest, Playwright) & linting",
           "Linux servers"
         ]
       },

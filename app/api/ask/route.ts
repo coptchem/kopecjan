@@ -78,14 +78,10 @@ export async function POST(request: Request) {
   if (!sanitized.ok) return json(400, { error: "invalid_question" });
   const locale = body.locale === "cs" ? "cs" : "en";
 
-  // 2. Bot protection: honeypot and proof of work
+  // 2. Bot protection: honeypot (proof of work follows the rate limit below)
   if (typeof body.website === "string" && body.website.trim() !== "") {
     log({ outcome: "honeypot" });
     return json(403, { error: "forbidden" });
-  }
-  if (!(await verifyProof(body.proof))) {
-    log({ outcome: "bad_proof" });
-    return json(403, { error: "invalid_proof" });
   }
 
   // 3. Rate limit
@@ -101,6 +97,14 @@ export async function POST(request: Request) {
     return json(429, { error: "rate_limited", retryAfterSeconds: limit.retryAfterSeconds }, limit, {
       "Retry-After": String(limit.retryAfterSeconds),
     });
+  }
+
+  // Proof of work only after the rate limit: a client over its limit cannot fill the
+  // single-use proof store and lock everyone else out. A failed proof gives the question back.
+  if (!(await verifyProof(body.proof))) {
+    askLimiter.refund(key);
+    log({ outcome: "bad_proof" });
+    return json(403, { error: "invalid_proof" });
   }
 
   // 4. Retrieval

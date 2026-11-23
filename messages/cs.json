@@ -151,7 +151,8 @@
         "desc": "Asistent tohoto webu: odpovídá na otázky o mně z mých vlastních dokumentů, včetně zdrojů.",
         "tags": ["Embeddingy", "Vektorové vyhledávání", "Claude API", "Next.js"],
         "linkLabel": "Vyzkoušet výše",
-        "href": "#ask"
+        "href": "#ask",
+        "repo": "https://github.com/coptchem/kopecjan"
       }
     ]
   },
@@ -173,6 +174,7 @@
           "Anthropic Claude",
           "OpenAI GPT",
           "Google Gemini",
+          "RAG (embeddingy, vektorové vyhledávání)",
           "LLM workflow",
           "Návrh promptů",
           "Řízení tokenů a nákladů"
@@ -214,7 +216,7 @@
           "GitHub Actions",
           "Bitbucket Pipelines",
           "Docker",
-          "Automatizované testy a linting",
+          "Automatizované testy (Vitest, Playwright) a linting",
           "Linuxové servery"
         ]
       },
@@ -236,9 +238,9 @@
           "Vyvíjím webové a mobilní aplikace, automatizace a integrace na míru pro klienty.",
           "Sbírám, čistím a normalizuji data z více webových zdrojů a API; dodávám je do databází klientů, Google Sheets nebo dalších systémů.",
           "Vyvíjím a provozuji vlastní předplatitelský SaaS pro sledování realitního trhu: datová pipeline, frontend, backend a e-mailové notifikace.",
-          "Integruji LLM (Claude, OpenAI API) do produktů a workflow a držím náklady na tokeny a automatizace pod kontrolou.",
+          "Integruji LLM (Claude, OpenAI API) do produktů a workflow a hlídám, aby náklady na tokeny zbytečně nerostly.",
           "Vyvíjím v Claude Code nastaveném jako agilní tým: subagenti pro plánování, vývoj, QA a bezpečnost, hooky pro automatické kontroly.",
-          "Píšu byznysové analýzy a technické specifikace pro vývojáře a krátká shrnutí pro manažery."
+          "Píšu byznysové analýzy, technické specifikace pro vývojáře a shrnutí pro manažery."
         ],
         "link": {
           "label": "automateam.cz",
@@ -252,7 +254,7 @@
         "bullets": [
           "Vyvíjel jsem zákaznické farmaceutické weby pro britský, francouzský, italský a španělský trh (Tridion CMS, vlastní kód přes GitHub).",
           "Migroval jsem data, obsah a vlastní kód z Tridion CMS do WordPress VIP.",
-          "Stavěl jsem registrační a přihlašovací flow včetně social loginu na Akamai Identity Cloud podle byznysových požadavků.",
+          "Stavěl jsem registrační a přihlašovací flow včetně social loginu na Akamai Identity Cloud.",
           "Implementoval jsem analytické měření přes Tealium a Google Tag Manager.",
           "Pracoval jsem ve 14denních scrumových sprintech s JIRA a Confluence v mezinárodním týmu."
         ]
@@ -262,7 +264,7 @@
         "org": "Česká pojišťovna a.s., Praha",
         "period": "2015 až 2018",
         "bullets": [
-          "Byznysová analýza a požadavky pro SAP HR data a nový LMS; vývoj intranetu na SharePointu a WordPressu."
+          "Byznysová analýza pro SAP HR data a nový LMS; vývoj intranetu (SharePoint, WordPress)."
         ]
       },
       {

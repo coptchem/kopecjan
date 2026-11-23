@@ -18,13 +18,13 @@ Full-stack vývojář s více než 10 lety praxe v IT. Stavím webové aplikace,
 ## Dovednosti
 
 - AI nástroje: Claude Code (subagenti, hooks, projektová pravidla), OpenAI Codex, Google Antigravity
-- LLM a API: Anthropic Claude, OpenAI GPT, Google Gemini, LLM workflow, prompt design, řízení spotřeby tokenů a nákladů
+- LLM a API: Anthropic Claude, OpenAI GPT, Google Gemini, RAG (embeddingy, vektorové vyhledávání), LLM workflow, prompt design, řízení spotřeby tokenů a nákladů
 - Automatizace: REST API, webhooky, integrace služeb třetích stran, data mining
 - Frontend: Vanilla JS, TypeScript, React, Next.js, Vite, Tailwind CSS, HTML, CSS
 - Backend: Node.js, Python, SQL, MySQL, PostgreSQL
 - CMS: WordPress VIP, Joomla, Tridion
 - Analytika: Google Tag Manager, Google Analytics, Tealium
-- CI/CD a DevOps: Git workflow, GitHub Actions, Bitbucket Pipelines, Docker, automatické testy a linting, Linux servery
+- CI/CD a DevOps: Git workflow, GitHub Actions, Bitbucket Pipelines, Docker, automatické testy (Vitest, Playwright) a linting, Linux servery
 - Spolupráce: GitHub, JIRA, Bitbucket, Confluence
 
 ## Pracovní zkušenosti
@@ -36,21 +36,21 @@ OSVČ, Česká republika, na dálku.
 - Vyvíjím webové a mobilní aplikace, automatizace a integrace na míru pro klienty.
 - Sbírám, čistím a normalizuji data z různých webových zdrojů a API; dodávám je do databází klientů, Google Sheets nebo jiných systémů.
 - Vyvíjím a provozuji vlastní předplatitelský SaaS pro monitoring realitního trhu: datová pipeline, frontend, backend a emailové notifikace.
-- Integruji LLM (Claude, OpenAI API) do produktů a workflow a hlídám, aby náklady na tokeny a automatizace zbytečně nerostly.
+- Integruji LLM (Claude, OpenAI API) do produktů a workflow a hlídám, aby náklady na tokeny zbytečně nerostly.
 - Vyvíjím v Claude Code nastaveném jako agilní tým: subagenti pro plánování, vývoj, QA a bezpečnost, hooks pro automatické kontroly.
-- Píšu byznysové analýzy a technické specifikace pro vývojáře a stručná shrnutí pro manažery.
+- Píšu byznysové analýzy, technické specifikace pro vývojáře a shrnutí pro manažery.
 
 ### Senior Frontend Developer, MSD IT Global Innovation Center, Praha (2018 až 2024)
 
 - Vyvíjel jsem farmaceutické weby pro zákazníky na britském, francouzském, italském a španělském trhu (Tridion CMS, vlastní kód přes GitHub).
 - Migroval jsem data, obsah a vlastní kód z Tridion CMS na WordPress VIP.
-- Vytvářel jsem registrační a přihlašovací procesy včetně social loginu na Akamai Identity Cloud podle byznysových požadavků.
+- Vytvářel jsem registrační a přihlašovací procesy včetně social loginu na Akamai Identity Cloud.
 - Implementoval jsem analytické měření pomocí Tealium a Google Tag Manager.
 - Pracoval jsem ve 14denních Scrum sprintech s JIRA a Confluence v mezinárodním týmu.
 
 ### Specialista HR systémů a business analytik, Česká pojišťovna a.s., Praha (2015 až 2018)
 
-- Business analýza a požadavky pro SAP HR data a nový LMS; vývoj intranetu na SharePointu a WordPressu.
+- Business analýza pro SAP HR data a nový LMS; vývoj intranetu (SharePoint, WordPress).
 
 ### IT podpora (L1 až L2), Ministerstvo životního prostředí ČR, Praha (2012 až 2015)
 

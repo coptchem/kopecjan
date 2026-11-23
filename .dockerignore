@@ -11,3 +11,6 @@ playwright-report
 test-results
 .env*
 !.env.example
+.claude
+*.local.json
+kopecjan-web.txt

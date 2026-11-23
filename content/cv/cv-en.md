@@ -18,13 +18,13 @@ Full-stack engineer with 10+ years in software. I build web applications, automa
 ## Skills
 
 - AI coding: Claude Code (subagents, hooks, project rules), OpenAI Codex, Google Antigravity
-- LLMs & APIs: Anthropic Claude, OpenAI GPT, Google Gemini, LLM workflows, prompt design, token & cost control
+- LLMs & APIs: Anthropic Claude, OpenAI GPT, Google Gemini, RAG (embeddings, vector search), LLM workflows, prompt design, token & cost control
 - Automation: REST APIs, webhooks, third-party integrations, data mining
 - Frontend: Vanilla JS, TypeScript, React, Next.js, Vite, Tailwind CSS, HTML, CSS
 - Backend: Node.js, Python, SQL, MySQL, PostgreSQL
 - CMS: WordPress VIP, Joomla, Tridion
 - Analytics: Google Tag Manager, Google Analytics, Tealium
-- CI/CD & DevOps: Git workflow, GitHub Actions, Bitbucket Pipelines, Docker, automated testing & linting, Linux servers
+- CI/CD & DevOps: Git workflow, GitHub Actions, Bitbucket Pipelines, Docker, automated testing (Vitest, Playwright) & linting, Linux servers
 - Working: GitHub, JIRA, Bitbucket, Confluence
 
 ## Experience
