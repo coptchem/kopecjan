@@ -16,7 +16,10 @@ export function Analytics() {
       src={src}
       strategy="afterInteractive"
       data-domain={site.domain}
-      {...(websiteId ? { "data-website-id": websiteId } : {})}
+      {...(websiteId
+        ? // Umami: count only the production domain, never localhost or previews.
+          { "data-website-id": websiteId, "data-domains": site.domain }
+        : {})}
     />
   );
 }
