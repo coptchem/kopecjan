@@ -14,7 +14,7 @@ export async function Projects() {
     <Section id="projects" lazy aria-labelledby="projects-title">
       <div className="flex flex-col gap-7">
         <SectionHeading id="projects-title" title={t("title")} subtitle={t("subtitle")} />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {items.map((item) => {
             const internal = item.href?.startsWith("#") ?? false;
             return (
@@ -24,11 +24,13 @@ export async function Projects() {
                   <Badge>{item.badge}</Badge>
                 </div>
                 <p className="flex-1 text-[14px] leading-[1.55] text-muted">{item.desc}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {item.tags.map((tag) => (
-                    <Tag key={tag}>{tag}</Tag>
-                  ))}
-                </div>
+                {item.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {item.tags.map((tag) => (
+                      <Tag key={tag}>{tag}</Tag>
+                    ))}
+                  </div>
+                )}
                 {item.href && item.linkLabel && (
                   <a
                     href={item.href}

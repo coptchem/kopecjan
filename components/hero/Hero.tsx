@@ -42,6 +42,14 @@ export async function Hero() {
               >
                 <Icon name="linkedin" />
               </IconLink>
+              <IconLink
+                href={site.github}
+                aria-label={t("github")}
+                rel="me noopener"
+                target="_blank"
+              >
+                <Icon name="github" />
+              </IconLink>
               <IconLink href={mailto} aria-label={t("email")}>
                 <Icon name="mail" />
               </IconLink>
