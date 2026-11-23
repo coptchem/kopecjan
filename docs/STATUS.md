@@ -4,6 +4,10 @@ Last update: 2026-11-23. Step 1 (the website) is live on https://kopecjan.cz. St
 is live too since 2026-11-23 (merged to `main`, `NEXT_PUBLIC_CHAT_ENABLED=true` on the server). Until the
 drafts in `content/` are filled, it answers from the CV only.
 
+Analytics since 2026-11-23: Umami Cloud (EU region, no cookies, so no cookie banner), website id in the
+server .env (`NEXT_PUBLIC_ANALYTICS_URL`, `NEXT_PUBLIC_ANALYTICS_SITE_ID`, inlined at build time). The script
+counts only kopecjan.cz (`data-domains`); browsers with ad blockers are not counted.
+
 Copy changes on 2026-11-23: the chat hint no longer says answers may contain mistakes; TAO Real Estate has
 no public link (its beta sits behind basic auth), so project links are optional in `messages/*.json`.
 
