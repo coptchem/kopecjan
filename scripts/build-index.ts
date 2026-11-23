@@ -79,14 +79,21 @@ async function main() {
   const used = new Set(texts.map(keyOf));
   const prunedCache = Object.fromEntries(Object.entries(cache).filter(([k]) => used.has(k)));
 
+  // Keep the file byte-identical when nothing changed, so builds do not dirty the repo.
+  const previous: IndexFile | null = existsSync(INDEX)
+    ? (JSON.parse(readFileSync(INDEX, "utf8")) as IndexFile)
+    : null;
+  const unchanged =
+    previous?.model === EMBED_MODEL && JSON.stringify(previous.chunks) === JSON.stringify(chunks);
+
   const index: IndexFile = {
     model: EMBED_MODEL,
     dimensions: EMBED_DIMENSIONS,
-    builtAt: new Date().toISOString(),
+    builtAt: unchanged && previous ? previous.builtAt : new Date().toISOString(),
     chunks,
   };
   mkdirSync(DATA, { recursive: true });
-  writeFileSync(INDEX, JSON.stringify(index) + "\n");
+  if (!unchanged) writeFileSync(INDEX, JSON.stringify(index) + "\n");
   writeFileSync(CACHE, JSON.stringify(prunedCache) + "\n");
 
   console.log(

@@ -3,7 +3,7 @@
 ## Pipeline
 
 ```
-content/**/*.md ──(build)──▶ chunk ──▶ embed (OpenAI) ──▶ data/index.json
+content/**/*.md ──(build)──▶ chunk ──▶ embed (local e5) ──▶ data/index.json
                                                               │
 question ──▶ embed ──▶ cosine top-k over index.json ──▶ threshold? ──no──▶ fallback (no LLM call)
                                                               │ yes
@@ -33,15 +33,17 @@ Chunking rules:
 - Split on headings (`##`, `###`); within a section split on blank lines so that a chunk is 80 to 400 tokens. Merge tiny paragraphs with the previous one. Never split a Q&A pair (a `### Q: ...` heading and its answer stay together).
 - Prefix every chunk's text with its document title and heading path (`"Flatter.cz > Architecture > ..."`) before embedding. This is what makes short chunks retrievable.
 - Store per chunk: `id`, `slug`, `title`, `kind`, `lang`, `url`, `heading`, `text` (without the prefix), `embedding` (number[]), `priority`.
-- Output `data/index.json`: `{ "model": "text-embedding-3-small", "dimensions": 512, "builtAt": ISO, "chunks": [...] }`. Commit it. The build script is idempotent and skips re-embedding chunks whose `sha256(text)` is unchanged (cache in `data/.embed-cache.json`, also committed).
+- Output `data/index.json`: `{ "model": "Xenova/multilingual-e5-small", "dimensions": 384, "builtAt": ISO, "chunks": [...] }`. Commit it. The build script is idempotent and skips re-embedding chunks whose `sha256(text)` is unchanged (cache in `data/.embed-cache.json`, also committed).
 
-Embeddings: OpenAI `text-embedding-3-small`, `dimensions: 512` (quality is nearly identical to 1536 for this corpus and the file is 3× smaller). The question is embedded with the same model and dimensions at request time. The model is multilingual: Czech questions retrieve English chunks and vice versa, so most content can be written once in English; Czech FAQ documents are welcome but not required.
+Embeddings: `Xenova/multilingual-e5-small` (384 dimensions, q8 ONNX, about 120 MB), computed locally with transformers.js on onnxruntime-node: no API key and no per-question cost. Documents are embedded with the prefix `passage: `, questions with `query: `; vectors are mean-pooled and normalised. The Docker image downloads the model at build time and never at runtime (`EMBED_ALLOW_DOWNLOAD=false`). The model is multilingual: Czech questions retrieve English chunks and vice versa, so most content can be written once in English; Czech FAQ documents are welcome but not required.
+
+Windows note: Windows ships its own `onnxruntime.dll` (Windows ML) in System32, which shadows the one onnxruntime-node needs and crashes the native model. On Windows, run `pnpm index:docker` (or `bash scripts/index-docker.sh test-rag --verbose`); production and CI run Linux.
 
 ## Retrieval (`lib/rag/retrieve.ts`)
 
-- `k = 6`, cosine similarity, score boosted by `priority * 0.02`.
+- `k = 6`, cosine similarity, score boosted by `priority * 0.01`.
 - Deduplicate chunks from the same document when more than 3 would be returned from one slug (keep the top 3).
-- Threshold: if the best score is below `0.30` (tune after the first real content lands; log scores in dev) → return `fallback` immediately without calling Claude. This saves money on off-topic questions and makes the fallback deterministic.
+- Threshold: if the best raw similarity is below `RAG_SCORE_THRESHOLD` (default `0.784`, tuned on `tests/rag/questions.json` for e5, whose scores sit in a narrow 0.75 to 0.90 band; re-tune with `pnpm test:rag --verbose` when content grows) → return `fallback` immediately without calling Claude. This saves money on off-topic questions and makes the fallback deterministic.
 - Context budget: concatenate chunks until roughly 2 500 tokens, numbered `[1]` to `[k]` with their title.
 
 ## Generation (`lib/rag/prompt.ts`, Claude API)
@@ -117,3 +119,7 @@ Responses:
 ## Evaluation (`tests/rag/`)
 
 A small golden set, `tests/rag/questions.json`: 20 to 30 questions in EN and CS with the expected source slug(s) and, for a few, a phrase that must appear in the answer, plus 5 off-topic questions that must hit the fallback. `pnpm test:rag` runs retrieval only (no LLM, deterministic) in CI and checks that the expected slug is in the top 3; a manual `pnpm test:rag --live` also calls the model and prints answers for review. Re-run after every content change.
+
+## Bot protection (added in M3)
+
+In front of the rate limit, `/api/ask` rejects requests that do not come from the site (`Origin` / `Sec-Fetch-Site`), that fill in a hidden honeypot field, or that lack a valid proof of work. `GET /api/challenge` hands out a signed ALTCHA SHA-256 challenge (HMAC with `ALTCHA_HMAC_KEY`, valid 5 minutes, about 20 000 to 100 000 hashes); the browser solves it in the background when the visitor focuses the input, and each solution is accepted once. Self-hosted, no cookies, no third party. The last line of defence is the spend limit on the Anthropic workspace: when credit runs out the API returns an error and the assistant answers with the fallback.

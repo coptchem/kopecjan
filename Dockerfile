@@ -28,6 +28,18 @@ COPY . .
 # Download the embedding model (about 120 MB) into the image and check that it runs.
 RUN pnpm exec tsx scripts/fetch-model.ts
 RUN pnpm build
+# onnxruntime-node is required at runtime by transformers.js in a way the standalone tracer
+# misses: collect it with its pnpm symlinks, Linux x64 binary only.
+RUN set -e; cd node_modules/.pnpm; \
+    mkdir -p /ext/node_modules/.pnpm; \
+    cp -a onnxruntime-node@* onnxruntime-common@1.30* /ext/node_modules/.pnpm/; \
+    rm -rf /ext/node_modules/.pnpm/onnxruntime-node@*/node_modules/onnxruntime-node/bin/napi-v6/win32 \
+           /ext/node_modules/.pnpm/onnxruntime-node@*/node_modules/onnxruntime-node/bin/napi-v6/darwin \
+           /ext/node_modules/.pnpm/onnxruntime-node@*/node_modules/onnxruntime-node/bin/napi-v6/linux/arm64; \
+    for t in @huggingface+transformers@*; do \
+      mkdir -p "/ext/node_modules/.pnpm/$t/node_modules"; \
+      cp -a "$t/node_modules/onnxruntime-node" "/ext/node_modules/.pnpm/$t/node_modules/"; \
+    done
 
 FROM node:22-bookworm-slim AS runner
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0 \
@@ -35,6 +47,7 @@ ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=3000 HOSTNAME=0.0.0.0 \
 WORKDIR /app
 RUN groupadd --system nextjs && useradd --system --gid nextjs --no-create-home nextjs
 COPY --from=build --chown=nextjs:nextjs /app/.next/standalone ./
+COPY --from=build --chown=nextjs:nextjs /ext/ ./
 COPY --from=build --chown=nextjs:nextjs /app/.next/static ./.next/static
 COPY --from=build --chown=nextjs:nextjs /app/public ./public
 COPY --from=build --chown=nextjs:nextjs /app/data ./data

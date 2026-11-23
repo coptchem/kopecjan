@@ -20,10 +20,9 @@ const nextConfig: NextConfig = {
   // the standalone trace carries the Linux binary and its shared library.
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
   outputFileTracingIncludes: {
-    "/api/ask": [
-      "./node_modules/.pnpm/onnxruntime-node@*/node_modules/onnxruntime-node/bin/napi-v6/linux/x64/*",
-      "./data/index.json",
-    ],
+    // onnxruntime-node is loaded by transformers.js with a runtime require the tracer cannot
+    // follow; the Dockerfile copies it (with its pnpm links) next to the standalone output.
+    "/api/ask": ["./data/index.json"],
   },
   outputFileTracingExcludes: {
     "*": [

@@ -1,35 +1,61 @@
 # Status
 
-Last update: 2026-11-20. Work is split in two steps: step 1 = the website (M0, M1, Docker from M5),
-step 2 = the assistant (M2, M3, M4, rest of M5, M6). Until step 2 ships, the chat panel is an
-inactive placeholder with a "Coming soon" badge and a disabled composer.
+Last update: 2026-11-23. Step 1 (the website) is live on https://kopecjan.cz. Step 2 (the assistant, M2 to M4)
+is built on branch `feat/m2-m4-rag`; the chat goes live once `ANTHROPIC_API_KEY` is on the server and
+`NEXT_PUBLIC_CHAT_ENABLED=true` is set.
 
 | Milestone | State | Notes |
 | --- | --- | --- |
-| M0 Scaffold | done | Next 15.5, Tailwind v4 tokens, next-intl (as-needed prefix, NEXT_LOCALE cookie), next-themes, Vitest, Playwright, ESLint 9 + Prettier, check-dashes in build and CI, GitHub Actions |
-| M1 Static page | done | All sections from the design; metadata, hreflang, OG image, JSON-LD Person, sitemap, robots, favicon; chat placeholder behind `NEXT_PUBLIC_CHAT_ENABLED` |
-| M2 Content and index | open | step 2 |
-| M3 Assistant API | open | step 2 |
-| M4 Chat UI | open | step 2, replaces `components/chat/ChatPlaceholder.tsx` |
-| M5 Deployment | partly | Dockerfile (standalone), compose.yml, `/api/health`, security headers in next.config. Open: deploy workflow, DNS, HSTS at the proxy, CSP |
-| M6 Content fill | open | Jan writes content/ per docs/06 |
+| M0 Scaffold | done | Next 15.5, Tailwind v4 tokens, next-intl, next-themes, Vitest, Playwright, ESLint 9 + Prettier, check-dashes, GitHub Actions |
+| M1 Static page | done | All sections from the design; metadata, hreflang, OG image, JSON-LD, sitemap, robots, favicon |
+| M2 Content and index | done | CV markdown from the PDFs, ask-about-jan and boundaries documents, 11 draft templates; local embeddings (multilingual-e5-small); `data/index.json` (24 chunks); `pnpm test:rag` 20 questions pass |
+| M3 Assistant API | done | `/api/ask` (SSE, Claude Haiku 5.5), `/api/challenge` (proof of work), rate limits, request log; 30 unit tests |
+| M4 Chat UI | done | 7 states, keyboard, aria-live, Stop, Retry; Playwright covers every state on desktop and mobile (27 tests) |
+| M5 Deployment | mostly | Hetzner server, Docker Compose, Caddy with Let's Encrypt (valid to 2027-02-21), HSTS, security headers, SSH hardened. Open: deploy workflow (manual `git pull && docker compose up -d --build` for now), CSP |
+| M6 Content fill | open | Jan fills the draft templates in `content/` (see below) |
 
-## Checks run on 2026-11-20
+## Checks run on 2026-11-23
 
-- `pnpm lint`, `pnpm test` (8 unit tests), `pnpm build`, `pnpm test:e2e` (13 Playwright tests, desktop + mobile) all green.
-- Not verified: `docker build` (Docker Desktop was not running on the dev machine). The Dockerfile follows the standard Next.js standalone recipe; CI builds with `NEXT_OUTPUT=standalone` on Linux, which covers the standalone output itself.
-- Screenshots at 1440 and 390 in light and dark, EN and CS, compared with the design artboards.
-- Lighthouse 12 (mobile preset) against `next start` on localhost: Accessibility 100, Best Practices 100, SEO 100, Performance 93 to 94 (simulated throttling; LCP 2.8 s is driven by the simulated 450 ms TTFB plus the Next.js runtime, 103 kB shared JS). The 95 target for Performance must be confirmed on the deployed URL with PageSpeed Insights; locally it is 1 to 2 points short.
+- `pnpm lint`, `pnpm test` (30), `pnpm build` with the chat on, `pnpm test:e2e` (27 passed, 1 skipped by design) green.
+- `pnpm test:rag` (in the Linux container): every answerable question finds an expected source in the top 3,
+  off-topic questions fall below the threshold.
+- Docker image built locally (731 MB: Debian slim, Next standalone, model 130 MB, onnxruntime 45 MB). In the
+  container, real questions go through embedding and retrieval in 10 to 60 ms after warm-up; without an API
+  key the assistant answers with the fallback.
+- Memory: about 800 MB resident with the model loaded, so `mem_limit` is 1200m (server has 3.8 GB).
+- Live site: HTTPS, www and http redirects, HSTS and headers verified. Lighthouse on the live URL could not be
+  measured reliably yet: the PageSpeed API quota was exhausted and the dev machine was under load (CPU
+  benchmark 602 instead of about 2700). Accessibility, Best Practices and SEO were 100. Re-run PageSpeed Insights.
 
 ## Assumptions and deviations
 
-- `Experience` uses native `<details>` and is a server component (no JavaScript needed for the collapsibles); CLAUDE.md listed it among client components.
-- Standalone output is opt-in via `NEXT_OUTPUT=standalone` because Windows needs symlink rights for it; the Dockerfile and CI set it.
-- Added UI keys not in the design: `chat.inactiveBadge`, `chat.inactiveTitle`, `chat.inactiveBody`, `chat.inactivePlaceholder` (placeholder state) and `notFound.*` (404 page).
-- Analytics: optional Plausible or Umami script, only when `NEXT_PUBLIC_ANALYTICS_URL` is set.
-- Fonts: Inter is self-hosted from `public/fonts` with hand-written `@font-face` rules (latin and latin-ext subsets, metric-compatible fallback) and explicit preload links instead of `next/font/google`. Reason: on this Windows checkout `next/font` produced an empty font manifest, so no preload links were emitted and Lighthouse put the fonts on the critical path. The result is deterministic on every platform and `docker build` no longer needs Google Fonts.
-- Sections below the fold use `content-visibility: auto` (`lazy` prop on `Section`) to cut layout work on mobile.
+- Embeddings are local (`Xenova/multilingual-e5-small`, transformers.js) instead of OpenAI, agreed with Jan to
+  keep the cost at zero. The threshold is 0.784 (e5 scores sit in a narrow band), tuned on the question set;
+  borderline questions go to the model, which answers NO_ANSWER.
+- Windows ships an old `onnxruntime.dll` (Windows ML) in System32, which crashes the native model. On Windows the
+  index is built with `pnpm index:docker`; production and CI run Linux.
+- Docker base image moved from Alpine to Debian slim (onnxruntime has no musl build). The Dockerfile copies
+  onnxruntime-node next to the standalone output because the tracer misses its runtime require.
+- Bot protection added beyond the spec: same-origin check, honeypot, self-hosted ALTCHA proof of work
+  (`ALTCHA_HMAC_KEY`, generated by `deploy/setup-server.sh`). Missing credit, a bad key or a refusal end in the
+  fallback with the e-mail, never in a retry.
+- Thinking is disabled and effort is `low` on Haiku 5.5, so all 350 output tokens go to the answer; temperature
+  is not sent (the model rejects non-default values).
+- New UI keys: `chat.invalidTitle`, `chat.invalidBody`, `chat.dailyTitle`, `chat.dailyBody`.
+- The CV markdown leaves out the phone number from the PDF; the assistant points to info@kopecjan.cz.
+- Earlier decisions (step 1): Experience is a server component with native `<details>`; standalone output is
+  opt-in via `NEXT_OUTPUT`; Inter is self-hosted with hand-written `@font-face`; below-the-fold sections use
+  `content-visibility: auto`.
 
-## Open placeholders
+## Open placeholders (content for the assistant)
 
-None. IČO filled in on 2026-11-22.
+All in `content/`, marked `draft: true` and skipped by the index until filled:
+
+- `about/profile.md`: who Jan is, what he wants next
+- `projects/flatter.md`, `projects/tao-real-estate.md`: problem, what Jan built, architecture, numbers, lessons
+- `experience/freelance.md`, `msd.md`, `ceska-pojistovna.md`, `ministry.md`: role, team, deliverables, why he moved on
+- `how-i-work/claude-code.md`, `how-i-work/process.md`
+- `faq/recruiters-en.md`, `faq/clients-cs.md`: availability, employment form, rates, remote, time zone
+
+Until these are filled, the assistant answers from the CV, the assistant description and the boundaries
+document only. The chip "Is he a fit for a remote AI engineer role?" will mostly get the fallback.

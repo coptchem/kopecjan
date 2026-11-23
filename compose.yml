@@ -23,7 +23,8 @@ services:
         required: false
     expose:
       - "3000"
-    mem_limit: 768m
+    # Next.js (~100 MB) plus the local embedding model (~430 MB resident), with headroom.
+    mem_limit: 1200m
 
   caddy:
     image: caddy:2.10-alpine
