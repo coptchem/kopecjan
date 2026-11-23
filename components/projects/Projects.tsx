@@ -16,7 +16,7 @@ export async function Projects() {
         <SectionHeading id="projects-title" title={t("title")} subtitle={t("subtitle")} />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {items.map((item) => {
-            const internal = item.href.startsWith("#");
+            const internal = item.href?.startsWith("#") ?? false;
             return (
               <Card as="article" lift key={item.name} className="flex flex-col gap-3.5 p-6">
                 <div className="flex items-center justify-between gap-3">
@@ -29,14 +29,16 @@ export async function Projects() {
                     <Tag key={tag}>{tag}</Tag>
                   ))}
                 </div>
-                <a
-                  href={item.href}
-                  className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-accent no-underline hover:underline"
-                  {...(internal ? {} : { target: "_blank", rel: "noopener" })}
-                >
-                  {item.linkLabel}
-                  <Icon name={internal ? "arrowUp" : "arrowUpRight"} size={14} strokeWidth={2} />
-                </a>
+                {item.href && item.linkLabel && (
+                  <a
+                    href={item.href}
+                    className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-accent no-underline hover:underline"
+                    {...(internal ? {} : { target: "_blank", rel: "noopener" })}
+                  >
+                    {item.linkLabel}
+                    <Icon name={internal ? "arrowUp" : "arrowUpRight"} size={14} strokeWidth={2} />
+                  </a>
+                )}
               </Card>
             );
           })}

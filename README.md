@@ -77,11 +77,11 @@ Windows: the native embedding model crashes because Windows ships an older `onnx
 
 ## Deployment
 
-Production runs on the Hetzner server (ssh alias `server`) in `/opt/kopecjan`: Docker Compose with
+Production runs on a Hetzner server in `/opt/kopecjan`: Docker Compose with
 two services, `caddy` (TLS on 80/443, config in `deploy/Caddyfile`) and `web` (Next.js standalone).
 
 ```
-ssh server
+ssh <server>
 cd /opt/kopecjan && git pull && docker compose up -d --build
 docker compose logs -f web
 ```

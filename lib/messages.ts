@@ -7,8 +7,9 @@ export type ProjectItem = {
   badge: string;
   desc: string;
   tags: string[];
-  linkLabel: string;
-  href: string;
+  /** Optional: a project without a public URL shows no link. */
+  linkLabel?: string;
+  href?: string;
 };
 
 export type SkillGroup = { name: string; tags: string[] };
