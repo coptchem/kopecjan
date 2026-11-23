@@ -32,6 +32,8 @@ jobs:
           key: embed-model-multilingual-e5-small-q8
       - run: pnpm test:rag
       - run: pnpm build
+        env:
+          NEXT_PUBLIC_CHAT_ENABLED: "true"
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
         env:
