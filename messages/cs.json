@@ -123,7 +123,17 @@
         "name": "TAO Real Estate",
         "badge": "Beta",
         "desc": "Provede majitele celým prodejem nemovitosti bez realitní kanceláře: kontrola katastru, úprava fotek s AI, prohlídky, orientační cena podle cenové mapy, smlouvy a podklady pro katastr.",
-        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"]
+        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"],
+        "linkLabel": "taoreal.cz",
+        "href": "https://taoreal.cz"
+      },
+      {
+        "name": "Pivo v akci",
+        "badge": "Data",
+        "desc": "Hlídá akční ceny piva v osmi českých supermarketech a řadí je od nejlevnějšího, podle ceny za litr nebo za kus. Scraper každé ráno čte API a weby řetězců, obrázkové PDF letáky přečte Claude API, a kdo chce, dostane e-mailové upozornění.",
+        "tags": ["Python", "Claude API", "GitHub Actions", "PHP", "SQLite"],
+        "linkLabel": "levne.pitpivo.cz",
+        "href": "https://levne.pitpivo.cz"
       },
       {
         "name": "Pit Pivo",

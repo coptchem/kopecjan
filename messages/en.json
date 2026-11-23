@@ -123,7 +123,17 @@
         "name": "TAO Real Estate",
         "badge": "Beta",
         "desc": "Walks private sellers through the whole sale without an agency: cadastre check, AI photo editing, viewings, an indicative price from a price map, contracts and land registry documents.",
-        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"]
+        "tags": ["Flutter", "NestJS", "PostgreSQL + PostGIS", "Gemini", "ChatGPT", "ČÚZK REST API"],
+        "linkLabel": "taoreal.cz",
+        "href": "https://taoreal.cz"
+      },
+      {
+        "name": "Pivo v akci",
+        "badge": "Data",
+        "desc": "Tracks beer deals in eight Czech supermarket chains and lists them from the cheapest, by price per litre or per can. A daily scraper reads the chains' APIs and websites, the Claude API reads image-only PDF leaflets, and visitors can subscribe to e-mail alerts.",
+        "tags": ["Python", "Claude API", "GitHub Actions", "PHP", "SQLite"],
+        "linkLabel": "levne.pitpivo.cz",
+        "href": "https://levne.pitpivo.cz"
       },
       {
         "name": "Pit Pivo",
