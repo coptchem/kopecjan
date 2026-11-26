@@ -38,7 +38,8 @@ Examples of what he has built with AI:
 
 - the RAG assistant "Ask about Jan" on this website, which answers questions about Jan only from his own documents,
 - a system for data consistency checks and data extraction for the Flatter project (flatter.cz),
-- automated processing of PDF documents from the Czech insolvency register (ISIR) for a law firm.
+- automated processing of PDF documents from the Czech insolvency register (ISIR) for a law firm,
+- automated daily scraping and processing of retail chains' promotional flyers for levne.pitpivo.cz (the Pivo v akci project).
 
 ### Q: Can Jan share code samples or references?
 
